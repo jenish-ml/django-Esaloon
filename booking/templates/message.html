@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <head><title>EDIT PRODUCT</title></head>
+    <body>
+        <div class="form-background" style="margin-top: 60px;">
+<center>
+            <div class="container">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {{form.as_p}}
+                    <div>
+                        <input type="submit" value="SEND">
+
+                    </div>
+                </form>
+            </div>
+        </center>
+        </div>
+    </body>
+{%endblock%}

@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        body {
+            background-color: #020202;
+        }
+
+        form label {
+           color: #020202;
+        }
+
+
+        .container {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 40%;
+            background-color: white;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="w3-container">
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+          
+            
+
+            {# Render all fields except the 'email' field #}
+            {% for field in form.visible_fields %}
+                {% if field.name != 'email' %}
+
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        {{ field.label_tag }} {{ field }}
+                    </div>
+                 
+                {% else %}
+                <input type="hidden" class="form-control" name="email" placeholder="example@gmail.com" id="email"
+                pattern=".+@gmail.com" size="30" value="{{field.value}}">
+   
+                {% endif %}
+
+            {% endfor %}
+
+            <div>
+            
+            <div>
+                <input type="submit" value="UPDATE">
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>
+{% endblock %}

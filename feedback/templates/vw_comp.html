@@ -1,0 +1,39 @@
+{%extends 'layout.html'%}
+{%block content%}
+<html>
+    <head><title>VIEW BOOK</title></head>
+    <body>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+              
+               <th scope="col">MESSAGE</th>
+                <th scope="col">RESPONSE</th>
+    
+    
+    
+    
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in a%}
+            <tr>
+    
+    
+                <td>{{i.message}}</td>
+                <td>{{i.response}}</td>
+    
+    
+    
+               
+    
+            </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        
+    </body>
+</html>
+
+{%endblock%}

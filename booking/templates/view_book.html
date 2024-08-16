@@ -1,0 +1,64 @@
+{%extends 'layout.html'%}
+{%block content%}
+<html>
+    <head><title>VIEW BOOK</title></head>
+   
+    <body>
+        {{request.user.id}}
+        
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">NAME</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">ADDRESS</th>
+                    <th scope="col">CATEGORY</th>
+                    <th scope="col">SERVICE NAME</th>
+                    <th scope="col">PRICE</th>
+                    <th scope="col">BOOKING DATE</th>
+                    <th scope="col">BOOKING TIME</th>
+                    <th scope="col">END TIME</th>
+                    <th scope="col">PAYMENT</th>
+                    <th scope="col">STATUS</th>
+                   
+                    
+                    
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in a%}
+                <tr>
+                   
+                    
+                    <td>{{i.user.username}}</td>
+                    <td>{{i.user.email}}</td>
+                    <td>{{i.user.address}}</td>
+                    <td>{{i.product.category}}</td>
+                    <td>{{i.product.name}}</td>
+                    <td>{{i.product.price}}</td>
+                    <!-- <td>{{i.service.name}}</td> -->
+                    
+                    <td>{{i.booking_date}}</td>
+                    <td>{{i.booking_time}}</td>
+                    <td>{{i.end_time}}</td>
+                    <td>{{i.payment}}</td>
+                    <td>{{i.messages}}</td>
+
+                    
+                    <td><button type="submit" ><a href="/message/{{i.id}}">MESSAGE</a></td>
+                                        
+                    
+                    
+                   
+            
+                    
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        
+    </body>
+</html>
+
+{%endblock%}

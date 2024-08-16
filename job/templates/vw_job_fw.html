@@ -1,0 +1,39 @@
+{%extends 'layout.html'%}
+{%block content%}
+<html>
+    <head><title>VIEW BOOK</title></head>
+   
+    <body>
+        
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Saloon Name</th>
+                    <th scope="col">Saloon Email</th>
+                    <th scope="col">Saloon Contact</th>
+                    <th scope="col">Job Title</th>
+                    <th scope="col">Job Description</th>
+                    <th scope="col">Salary</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in a%}
+                <tr>
+                    <td>{{i.user.username}}</td>
+                    <td>{{i.user.email}}</td>
+                    <td>{{i.user.phone_no}}</td>
+                    <td>{{i.job_title}}</td>
+                    <td>{{i.job_description}}</td>
+                    <td>{{i.salary}}</td>
+                  
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        
+    </body>
+</html>
+
+{%endblock%}

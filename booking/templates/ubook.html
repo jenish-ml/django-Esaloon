@@ -1,0 +1,101 @@
+
+{%extends 'layout.html'%}
+{%block content%}
+<br>
+<br>
+<center>
+        <!-- {{request.user.id}} -->
+        {% if msg %}
+            <script>
+                alert("This slot is not available!");
+            </script>
+        {% endif %}
+        <div class="container">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="bg-secondary p-5">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                        {% csrf_token %}
+                                        
+                                        {{form.as_p}}
+                                        <div>
+                                            <button type="button" class="btn btn-bookings">View current bookings</button>
+                                            <input type="submit" value="BOOK"class="btn-submit-pay" >
+
+                                        </div>
+
+                                       
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                        </div>
+        </div>
+        
+        <script>
+
+            //alert("{{s.close}}")
+            var time = "{{s.close}}";
+            var open = timeConv("{{s.open}}");
+            var close = timeConv("{{s.close}}");
+            var holiday = "{{s.holiday}}"
+            $('input[name="booking_time"]').attr('data-open', open);
+            $('input[name="booking_time"]').attr('data-close', close);
+            $('input[name="booking_date"]').attr('data-hd', holiday);
+            function timeConv(time) {
+                var hours = Number(time.match(/^(\d+)/)[1]);
+            var minutes = (time.indexOf(':')==-1)?"00":Number(time.match(/:(\d+)/)[1]);
+            var AMPM = time.substring(time.indexOf(' ')).trim().replaceAll('.', '')
+            if(AMPM == "pm" && hours<12) hours = hours+12;
+            if(AMPM == "am" && hours==12) hours = hours-12;
+            var sHours = hours.toString();
+            var sMinutes = minutes.toString();
+            if(hours<10) sHours = "0" + sHours;
+            if(minutes != "00" && minutes<10) sMinutes = "0" + sMinutes;
+            return(sHours +":"+sMinutes)
+            }
+        </script>
+        <div id="bkgsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+          
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Bookings</h4>
+                </div>
+                <div class="modal-body">
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <label style="color: black;">Starting time:</label>
+                    <input type="time" id="stime" name="stime" class="form-control bg-transparent sd">
+                    <label style="color: black;">End time:</label>
+                    <input type="time" id="etime" name="etime" class="form-control bg-transparent ed">
+                    <input type="submit" class="btn-search-bkg" value="SEARCH">
+                  </form>
+                  <table class="table bk-content">
+                    <thead>
+                        <tr>
+                            <th>Start time</th>
+                            <th>End time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+          
+            </div>
+          </div>
+    </center>
+
+{%endblock%}

@@ -1,0 +1,43 @@
+{%extends 'layout.html'%}
+{%block content%}
+<html>
+    <head><title>VIEW CATEGORY</title></head>
+    <body>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">CATEGORY</th>
+                    <th scope="col">FOR WHOME</th>
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th>
+                   
+                    
+                    
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in a%}
+                <tr>
+                   
+                    
+                    <td>{{i.category}}</td>
+                    {% if i.choose == 'cs' %}
+                    <td>Cosmatic Seller</td>
+                    {% else %}
+                    <td> Salon / Freelance</td>
+                    {% endif %}
+                    <td><a class="btn btn-success btn-sm" href="/edit_cat/{{i.id}}">Edit</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="/delete_cat/{{i.id}}">Delete</a></td>
+                   
+            
+                    
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        
+    </body>
+</html>
+
+{%endblock%}

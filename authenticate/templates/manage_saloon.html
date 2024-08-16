@@ -1,0 +1,46 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+    <head><title>APPROVAL</title>
+        <style>
+            /* CSS to change the border line color of the table */
+            table.table-bordered {
+              border: 2px solid #fcfafa; /* Replace #ff0000 with your desired color code */
+            }
+            </style></head>
+    
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">NAME</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">ADDRESS</th>
+                    <th scope="col">CONTACT</th>
+                    <th scope="col">USERTYPE</th>
+                    <th scope="col">DELETE</th>
+                   
+                    
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in a%}
+                <tr>
+                   
+                    
+                    <td>{{i.username}}</td>
+                    <td>{{i.email}}</td>
+                    <td>{{i.address}}</td>
+                    <td>{{i.phone_no}}</td>
+                    <td>{{i.usertype}}</td>
+                    
+                    <td><a class="btn btn-success btn-sm" href="/delete/{{i.id}}">DELETE</a></td>
+                   
+            
+                    
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        
+ {%endblock%}

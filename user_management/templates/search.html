@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{%block content%}
+{%load static%}
+<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'assets/css/stule.css' %}">
+</head>
+   
+
+<br><br><br><br>
+<center>
+<div class="container search">
+
+    <form action="" method="GET">
+        
+        <input type="text" name="key1" placeholder="search your sports category">
+        <button type="submit" href="/" ><i class="fa fa-search"></i></button>
+    </form>
+
+</div>
+</center>
+
+
+<section class="schedule" id="homes">
+       
+    <div class="container-fluid" data-aos="fade-up" data-aos-delay="600">
+        
+<div class="gallery"  data-aos="fade-up" data-aos-delay="600">
+    {% for x in co %}
+   
+    <div class="profile" data-aos="fade-up" data-aos-delay="600">
+        <img src="{{x.img.url}}">
+         <div class="details">
+            <center><h4  style="color:red; text-transform:uppercase;">{{x.username}}</h2>
+                <p style="text-align:left;"> &nbsp; &nbsp;Contact  &nbsp; &nbsp; &nbsp; :&nbsp; &nbsp;{{x.contact}}</p>
+                <p style="text-align:left;"> &nbsp; &nbsp;Email  &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;{{x.email}}</p>
+                <p style="text-align:left;"> &nbsp; &nbsp;Experience : &nbsp;&nbsp;&nbsp;{{x.experience}}</p>
+                <p style="text-align:left;"> &nbsp; &nbsp;Category &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{x.category}}</p>
+                <p style="text-align:left;"> &nbsp; &nbsp;District &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{x.district}}</p>
+            </center>
+        </div>
+
+        <a class="form-control btn custom-btn bg-color  mt-3" href="/cbook/{{x.id}}">Book Now</a>
+    </div>
+    {% endfor %}
+    
+</div>
+    </div>
+</section>
+
+<section class="schedule" id="homes">
+    
+            <div class="container-fluid" data-aos="fade-up" data-aos-delay="600">
+        
+<div class="gallery"  data-aos="fade-up" data-aos-delay="600">
+    {% for x in ac %}
+   
+    <div class="profile" data-aos="fade-up" data-aos-delay="600">
+        <img src="{{x.img.url}}">
+         <div class="details">
+            <center><h4  style="color:red; text-transform:uppercase;">{{x.username}}</h4>
+                <p style="text-align:left;"> &nbsp; &nbsp;Contact  &nbsp; &nbsp; &nbsp; :&nbsp; &nbsp;{{x.contact}}</p>
+                <p style="text-align:left;"> &nbsp; &nbsp;Email  &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;{{x.email}}</p>
+                <p style="text-align:left;"> &nbsp; &nbsp;Category &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{x.category}}</p>
+                <p style="text-align:left;"> &nbsp; &nbsp;District &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{x.district}}</p>
+                {% comment %} <p style="text-align:left;"> Contact : {{x.contact}}</p>
+                <p style="text-align:left;"> Email   : {{x.email}}</p>
+                <p style="text-align:left;">Category  : {{x.category}}</p>
+                <p style="text-align:left;">District  : {{x.district}}</p> {% endcomment %}
+            </center>
+        </div>
+
+        <a class="form-control btn custom-btn bg-color  mt-3" href="/abook/{{x.id}}">Book Now</a>
+    </div>
+    {% endfor %}
+    
+</div>
+    </div>
+</section>
+</div>
+
+
+
+<br><br><br><br>
+{%endblock%}

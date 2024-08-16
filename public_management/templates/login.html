@@ -1,0 +1,57 @@
+{%extends 'layout.html'%}
+{%block content%}
+<center>
+    <br><br>
+    {% if log %}
+    <script>
+        alert('You are Succesfully registered and can login')
+    </script>
+    {% endif %}
+
+
+
+     {% if login %}
+    <script>
+        alert('You are  Succesfully register and can login only after the approval')
+    </script>
+    {% endif %}
+
+
+        <div class="container">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="bg-secondary p-5">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <div class="form-floating">
+                                            {% csrf_token %}
+                                            {{d}}
+                                            <div>
+                                                <label for="uname">Username</label>
+                                                <input type="text" name="username" id="uname" class="form-control bg-transparent">
+                                            </div>
+                                            <div>
+                                                <label for="pswd">Password</label>
+                                                <input type="password" name="password" id="pswd" class="form-control bg-transparent">
+                                            </div>
+                                            
+                                            </div>
+                                            <br><br>
+                                           
+                                        <div > 
+                                            
+                                            <input type="submit"  value="Login" class="reg" style="width: 50%;color: rgb(255, 254, 254);background-color: #212529;"> 
+                                            <br><br><a href="/forgot_password">Forgot Password</a>
+                                            
+                                        </div>
+                                </div>
+                            </div>
+                        
+                        </form>
+
+                    </div>
+            </div>
+        </div>
+   
+</center>
+{%endblock%}

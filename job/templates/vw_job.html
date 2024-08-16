@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>VIEW BOOK</title>
+        <style>
+            /* Add custom CSS here if needed */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ccc; /* Adding a border */
+            }
+
+            th, td {
+                border: 1px solid #ccc; /* Adding borders to cells */
+                padding: 8px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #fefefe;
+                color: #fff;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        {{ request.user.id }}
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">JOB NAME</th>
+                    <th scope="col">JOB DESCRIPTION</th>
+                    <th scope="col">SALARY</th>
+                    <th scope="col">DELETE</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in a %}
+                <tr>
+                    <td>{{ i.job_title }}</td>
+                    <td>{{ i.job_description }}</td>
+                    <td>{{ i.salary }}</td>
+                    <td><a class="btn btn-danger btn-sm" href="/delete_job/{{ i.id }}"onclick="return confirm('Are you sure you want to delete job {{i.job_title}}?')">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
+{% endblock %}

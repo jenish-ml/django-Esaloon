@@ -1,0 +1,46 @@
+{%extends 'layout.html'%}
+{%block content%}
+<html>
+    <head><title>VIEW PRODUCT</title></head>
+    <body>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">CATEGORY NAME</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">IMAGE</th>
+                    <th scope="col">PRICE</th>
+                    <th scope="col">DESCRIPTION</th>
+                    <th scope="col">EDIT</th>
+                    <th scope="col">DELETE</th>
+                   
+                    
+                    
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in a%}
+                <tr>
+                   
+                    <td>{{i.category}}</td>
+                    <td>{{i.name}}</td>
+                    <td><img src="{{i.image}}" alt="" width="45px" height="60px"></td>
+                    <td>{{i.price}}</td>
+                    <td>{{i.desc}}</td>
+                    
+                    {% if request.session.ut == 3 %}
+                    <td><a class="btn btn-success btn-sm" href="/edit_freelance_product/{{i.id}}">Edit</a></td>
+                    <td><a class="btn btn-success btn-sm" href="/delete_freealnce_product/{{i.id}}"onclick="return confirm('Are you sure you want to delete product {{i.name}}?')">Delete</a></td>
+                   {% else %}
+                   <td><a class="btn btn-success btn-sm" href="/edit_seller_product/{{i.id}}">Edit</a></td>
+                   <td><a class="btn btn-success btn-sm" href="/seller_delete_product/{{i.id}}"onclick="return confirm('Are you sure you want to delete product {{i.name}}?')">Delete</a></td>
+                   {% endif %}
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        
+    </body>
+</html>
+{%endblock%}

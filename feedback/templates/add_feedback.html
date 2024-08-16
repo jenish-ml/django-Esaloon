@@ -1,0 +1,120 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<html>
+
+<head>
+    <title>CATEGORY</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0e0e0e;
+        }
+
+        .card-container {
+            width: 600px;
+            margin: 50px auto;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-floating label {
+            color: #0e0e0e;
+            left: 0;
+        }
+
+        .form-floating input {
+            height: 2.5rem;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Rating Stars */
+        .rating {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            cursor: pointer;
+            font-size: 30px;
+            color: #ccc;
+        }
+
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked ~ label {
+            color: #fdd835;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-container">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="form-floating">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="rating">
+                    <input type="radio" name="rating" id="star5" value="5">
+                    <label for="star5">&#9733;</label>
+                    <input type="radio" name="rating" id="star4" value="4">
+                    <label for="star4">&#9733;</label>
+                    <input type="radio" name="rating" id="star3" value="3">
+                    <label for="star3">&#9733;</label>
+                    <input type="radio" name="rating" id="star2" value="2">
+                    <label for="star2">&#9733;</label>
+                    <input type="radio" name="rating" id="star1" value="1">
+                    <label for="star1">&#9733;</label>
+                </div>
+                <div>
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.rating input');
+
+        stars.forEach(star => {
+            star.addEventListener('change', (event) => {
+                const rating = event.target.value;
+                console.log(`Selected rating: ${rating}`);
+                // You can add further logic here to handle the selected rating
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+{% endblock %}

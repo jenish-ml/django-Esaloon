@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        width: 100%;
+        max-width: 400px; /* Set a maximum width for the card */
+        margin: auto; /* Center the card horizontally */
+        margin-bottom: 20px; /* Add some space between the cards */
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .container {
+        padding: 2px 16px;
+      }
+    </style>
+  </head>
+
+  <body style="background-color:#030303">
+    <div class="w3-container row">
+
+      <br>
+      <br>
+      {% for i in c %}
+      <div class="col-md-4">
+        <div class="card w3-white w3-hover-shadow">
+
+          <div style="background-color:white;">
+            <img src="{{ i.user.saloon_certificate }}" class="card-img-center" style="height: 300px; width: 100%; display: block; margin: auto;">
+            <p>Shope Name: {{ i.user.username }}</p>
+            <p>Contact: {{ i.user.phone_no }}</p>
+            <p>Locality: {{ i.user.locality }}</p>
+            <p>Saloon Route:<a href="{{ i.route }}"><b><i class="fa fa-route"> </i></b></a></p>
+            <p>DISTANCE: {{ i.dis }}</p>
+
+            <div class="button-group" style="display: flex; justify-content: space-between;">
+              <button type="submit" class="btn btn-info" style="background-color: #fffcfc; color: #2307f8; border-radius: 5px; padding: 10px; text-decoration: none;">
+                <a href="/v_saloon_product/{{i.user.id}}" style="color: inherit; text-decoration: none;">VIEW_SERVICES</a>
+              </button>
+             
+            </div>
+            <!-- <img src="../static/assets/ServiceImage/{{i.spartimage}}" alt="" width='90px' height='50px'> -->
+            <!-- <button type="submit" ><a href="/request_hc/{{i.id}}">SEND REQUEST</a></button> -->
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+
+{% endblock %}

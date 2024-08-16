@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+<style>
+  /* Add your styles for the Flipkart-style layout */
+  body {
+      background-color: black; /* Flipkart background color */
+      font-family: Arial, sans-serif; /* Flipkart font family */
+  }
+
+  .product-card {
+      background-color: #ffffff; /* White background for product cards */
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1); /* Add shadow effect */
+      transition: box-shadow 0.3s;
+  }
+
+  .product-card:hover {
+      box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  }
+
+  .product-image {
+      width: 100%;
+      height: 150px; /* Set a fixed height for all images */
+      object-fit: cover;
+      border-bottom: 1px solid #e0e0e0; /* Light gray border at the bottom */
+  }
+
+  .product-details {
+      padding: 16px;
+      margin-top:60px;
+  }
+
+  .product-title {
+      font-size: 1.2em;
+      margin-bottom: 8px;
+      color: #212121; /* Dark text color */
+  }
+
+  .product-price {
+      font-size: 1.2em;
+      color: #ff5722; /* Flipkart's primary color for prices */
+      margin-bottom: 8px;
+  }
+
+  .product-description {
+      font-size: 1em;
+      color: #757575; /* Gray text color for description */
+      margin-bottom: 8px;
+  }
+
+  .product-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+  }
+
+  .product-actions a {
+      text-decoration: none;
+      color: #fff;
+      background-color:gray; /* Flipkart's primary color for buttons */
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+  }
+
+  .product-actions a:hover {
+      background-color: #f4511e; /* Darker shade of primary color on hover */
+  }
+
+  
+
+  @media screen and (max-width: 768px) {
+      .product-card {
+          width: 100%;
+      }
+  }
+</style>
+
+{{ request.user.id }}
+
+<div class="row">
+  {% for i in a %}
+  <div class="col-md-2">
+    <div class="product-card">
+      <div class="product-image">
+        <img src="{{ i.saloon_certificate.url }}" alt="{{ i.username }}" style="width:150px;height:200px;">
+       
+      </div>
+      <div class="product-details">
+        <div class="product-title">{{ i.username }}</div>
+    
+        <div class="product-price"><i class="fa fa-phone"> {{ i.phone_no }}</i></div>
+        
+        <div class="product-description">
+          <i class="fa fa-address"> {{ i.locality }}</i></div>
+        {% comment %} <div class="product-description">  {{ i.no_of_seats }}</div> {% endcomment %}
+        <div class="product-actions">
+          <a href="/v_saloon_product/{{ i.id }}">View Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

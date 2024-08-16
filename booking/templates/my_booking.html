@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #0e0e0e;
+    }
+
+    .table-container {
+        width: 100%;
+        margin: 20px auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #f2efef;
+    }
+
+    th, td {
+        border: 1px solid #f5f3f3;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #333;
+        color: #fff;
+    }
+
+    td {
+        color: #fff;
+    }
+</style>
+<div class="table-container">
+    <table class="table table-borderless table-hover">
+        <thead>
+            <tr>
+                <th scope="col">CATEGORY NAME</th>
+                <th scope="col">SALOON NAME</th>
+                <th scope="col">PRICE</th>
+                <th scope="col">BOOKING DATE</th>
+                <th scope="col">BOOKING TIME</th>
+                <th scope="col">PAYMENT</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">GIVEN FEEDBACK</th>
+                <th scope="col"> FEEDBACK / CANCEL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <h1 class="text-center mb-4">TOTAL AMOUNT: {{ total_price }}</h1>
+            {% for booking in a %}
+            <tr>
+                <td>{{ booking.product.category|default:'' }}</td>
+                <td>
+                    {% if booking.product and booking.product.user %}
+                    {{ booking.product.user.username }} - {{ booking.no_of_products }} products
+                    {% else %}
+                    No saloon name
+                    {% endif %}
+                </td>
+                {% if booking.product %}
+                <td>{{ booking.product.price|default:'' }}</td>
+                {% elif booking.cosmatic_product  %}
+                <td>{{ booking.cosmatic_product.product_name|default:'' }}</td>
+                {% else  %}
+                <td></td>
+                {% endif %}
+                <td>{{ booking.booking_date }}</td>
+                <td>{{ booking.booking_time }}</td>
+                <td>{{ booking.payment }}</td>
+                <td>{{ booking.status }} </td>
+                <td>{{ booking.f_id.message|default:'' }} {% if booking.f_id.rating %}&#9733;{% endif %}</td>
+                {% if booking.booking_date <= now.date and booking.status == "not given" %}
+                <td></td>
+                <td><a class="btn btn-success btn-sm" href="/add_feedbacks/{{ booking.id }}">FEEDBACK</a></td>
+                {% else %}
+                {% if booking.payment == "paid and cancelled" %}
+                <td> YOU CANCELLED </td>
+                {% elif booking.status == 'not given' %}
+                <td> <a href="/cancel/{{booking.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel booking..? the amount is not refunded')">CANCEL</td>
+                {% endif %}
+                {% endif %}
+            </tr>
+            {% endfor %}
+            {% for booking in b %}
+            <tr>
+                {% if booking.cosmatic_product %}
+                <td>{{ booking.cosmatic_product.product_name|default:'' }}</td>
+                <td>{{ booking.cosmatic_product.user.username}}</td>
+                <td>{{ booking.cosmatic_product.price }}</td>
+                <td>{{ booking.booking_date }}</td>
+                <td>{{ booking.booking_time }}</td>
+                <td>{{ booking.payment }}</td>
+                <td>{{ booking.status }}</td>
+                <td>{{ booking.f_id.message|default:'' }} - <br>{% if booking.f_id.rating %} <span style="color: yellow;">{{booking.f_id.rating}} &#9733;</span>{% endif %}</td>
+                {% else %}
+                <td>{{ booking.product.category|default:'' }}</td>
+                <td>{{ booking.product.user.username|default:'' }}</td>
+                <td>{{ booking.product.price|default:'' }}</td>
+                <td>{{ booking.booking_date }}</td>
+                <td>{{ booking.booking_time }}</td>
+                <td>{{ booking.payment }}</td>
+                <td>{{ booking.status }}</td>
+                <td>{{ booking.f_id.message|default:'' }} - <br>{% if booking.f_id.rating %} <span style="color: yellow;">{{booking.f_id.rating}} &#9733;</span>{% endif %}</td>
+                {% endif %}
+                {% if booking.booking_date <= now.date and booking.status == 'not given'%}
+                <td><a class="btn btn-success btn-sm" href="/add_feedbacks/{{ booking.id }}">FEEDBACK</a></td>
+                {% else %}
+                {% if booking.payment == "paid and cancelled" %}
+                <td> YOU CANCELLED </td>
+                {% elif booking.status == 'not given' %}
+                <td> <a href="/cancel/{{booking.id}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel booking..? the amount is not refunded')">CANCEL</td>
+                    {% else%}
+                    <td></td>
+                {% endif %}
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

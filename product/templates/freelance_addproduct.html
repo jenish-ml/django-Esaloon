@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .col-lg-6 {
+        {% comment %} background-color: #f9f9f9; {% endcomment %}
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 800px;
+    }
+    .col-lg-6 h2 {
+        margin-top: 0;
+    }
+    .form-floating input[type="submit"] {
+        margin-top: 10px;
+    }
+</style>
+
+<br><br><center>
+<div class="container">
+    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s"  >
+        <div class="bg-secondary p-5" style="width: 700px;">
+            <form action="" method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <div class="form-floating">
+                            {{form.as_p}}
+                            <input type="submit" value="ADD PRODUCT">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</center>
+<script>
+    $(document).click(function () {
+        $('#id_category').val()
+        
+    
+});
+</script>
+{% endblock %}

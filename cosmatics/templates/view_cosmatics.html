@@ -1,0 +1,125 @@
+{% extends 'layout.html' %}
+{% block content %}
+<html>
+<head>
+    <title>VIEW PRODUCT</title>
+    <style>
+        /* Add styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+        }
+        .modal-content img {
+            width: 100%;
+            height: 600px;
+        }
+        /* Close button for the modal */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            font-size: 30px;
+            color: #f1f1f1;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">CATEGORY</th>
+                <th scope="col">PRODUCT NAME</th>
+                <th scope="col">NO OF PRODUCT </th>
+                <th scope="col">IMAGE</th>
+                <th scope="col">PRICE</th>
+                <th scope="col">EDIT</th>
+                <th scope="col">DELETE</th>
+               
+                
+                
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in a%}
+            <tr>
+               
+                
+                <td>{{i.category}}</td>
+                <td>{{i.product_name}}</td>
+                <td>{{i.no_of_products}}</td>
+                <td><img src="{{i.image}}" alt="" width="45px" height="60px"></td>
+                <td>{{i.price}}</td>
+                
+                <td><a class="btn btn-success btn-sm" href="/edit_cosmatics/{{i.id}}">Edit</a></td>
+                <td><a class="btn btn-success btn-sm" href="/delete_cosmatics/{{i.id}}" onclick="return confirm('Are you Sure to delete the product {{i.product_name}}')">Delete</a></td>
+               
+        
+                
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImg" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle the modal
+        const modal = document.getElementById("myModal");
+        const modalImg = document.getElementById("modalImg");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        // Function to open the modal
+        function openModal(imageSrc) {
+            modal.style.display = "block";
+            modalImg.src = imageSrc;
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Attach click event to each image in the table
+        const images = document.querySelectorAll("img");
+        images.forEach((img) => {
+            img.addEventListener("click", () => openModal(img.src));
+        });
+
+        // Close the modal when the close button is clicked
+        closeBtn.onclick = closeModal;
+
+        // Close the modal when the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
+{% endblock %}

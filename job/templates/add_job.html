@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+{% block content %}
+<br><br>
+
+<html>
+<head>
+    <title>CATEGORY</title>
+    <style>
+        /* Internal CSS styles for card layout */
+        .container {
+
+                   
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                   
+                }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .form-floating label {
+                    color: #555;
+                }
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+
+        /* Style the form input fields */
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 0.375rem 0.75rem;
+        }
+        .form-floating input[type="text"],
+                .form-floating input[type="email"],
+                .form-floating textarea {
+                    border: 1px solid #ccc;
+                    border-radius: 6px;
+                    padding: 10px;
+                    width: 100%;
+                    margin-bottom: 15px;
+                }
+                .form-floating input[type="submit"] {
+                    background-color: #007bff;
+                    color: #fff;
+                    border: none;
+                    border-radius: 6px;
+                    padding: 12px 20px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+
+        /* Style the "ADD JOB" button */
+        input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Center the form within the container */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+            <div class="card">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <div class="text-center mt-3">
+                                    <input type="submit" class="btn btn-primary" value="ADD JOB">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock %}

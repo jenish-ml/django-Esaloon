@@ -1,0 +1,155 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        /* Add your styles for the flipkart-style layout */
+        body {
+            background-color: #131313;
+        }
+    
+        .product-card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: box-shadow 0.3s;
+            display: flex;
+            flex-direction: column; /* Arrange child elements vertically */
+        }
+    
+        .product-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    
+        .product-image {
+            width: 100%;
+            height: 200px; /* Set a fixed height for all images */
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            flex-grow: 1; 
+            margin-top: 60px;
+        }
+    
+        .product-title {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+    
+        .product-price {
+            font-size: 1.2em;
+            color: #e44d26;
+            margin-bottom: 8px;
+        }
+    
+        .product-description {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 8px;
+        }
+    
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 8px;
+        }
+    
+        .product-actions a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #191C24;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+    
+        .product-actions a:hover {
+            background-color: #333;
+        }
+
+        .heart-icon {
+            font-size: 1.2em;
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+    
+</head>
+<body>
+
+<form action="" method="post" enctype="multipart/form-data" style="width: 400px;">
+    <div class="form-floating">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button type="submit" style="margin-left: 5%;">FILTER</button>
+        </div>
+    </div>
+</form>
+
+<div class="product-container">
+    <div class="row">
+        {% for i in f %}
+        <div class="col-md-2 col-sm-4">
+            <div class="product-card">
+                <div class="product-image" style="position: relative;">
+                    <img src="{{ i.image.url }}" alt="{{ i.name }}">
+                    <span class="heart-icon" onclick="addToWishlist('{{ i.id }}')" title="Add to Wishlist" style="position: absolute; top: 0; right: 0;">❤️</span>
+                </div>
+                <div class="product-details">
+                    <div class="product-title">{{ i.name }}</div>
+                    <div class="product-price">Price: {{ i.price }}</div>
+                    <div class="product-description">{{ i.desc }}</div>
+                    <div class="product-actions">
+                        <a href="/ubook/{{ i.id }}">BOOK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // JavaScript function to handle the "Add to Wishlist" click event
+    function addToWishlist(productId) {
+        // You can use AJAX here to send a request to your Django view to add the product to the wishlist
+        // Example using Fetch API:
+        fetch('/cart/' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            // You can include additional data in the body if needed
+            // body: JSON.stringify({}),
+        })
+        .then(response => {
+            // Handle the response as needed
+            
+            console.log('Product added to wishlist');
+
+            window.location.href = '/view_cart';
+        })
+        .catch(error => {
+            console.error('Error adding product to wishlist:', error);
+        });
+    }
+</script>
+
+</body>
+</html>
+
+{% endblock %}

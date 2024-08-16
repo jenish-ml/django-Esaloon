@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>VIEW CATEGORY</title>
+        <style>
+            body {
+                background-color: #020202;
+            }
+
+            table {
+                width: 100%;
+                border: 1px solid #dee2e6;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #dee2e6;
+                border-right: 1px solid #dee2e6;
+            }
+
+            th:last-child,
+            td:last-child {
+                border-right: none;
+            }
+
+            th {
+                background-color: #fefefe;
+                color: #fff;
+            }
+
+          
+        </style>
+    </head>
+    <body>
+        <br>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if request.session.ut == "1" %}
+                {% for i in a %}
+                <tr>
+                    <td>{{ i.saloon_name.username}}</td>
+                    <td>{{ i.rid.phone_no }}</td>
+                    <td>{{ i.subject }}</td>
+                    <td>{{ i.message }}</td>
+                    <td>{{ i.rating }} star</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+
+                {% if request.session.ut == "2" %}
+                {% for i in b %}
+                <tr>
+                    <td>{{ i.rid.username }}</td>
+                    <td>{{ i.rid.phone_no }}</td>
+                    <td>{{ i.subject }}</td>
+                    <td>{{ i.message }}</td>
+                    <td>{{ i.rating }} star</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </body>
+</html>
+
+{% endblock %}

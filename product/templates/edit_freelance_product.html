@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+        }
+        .card {
+            width: 500px;
+            background-color: #0b0b0b;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        .card form {
+            display: flex;
+            flex-direction: column;
+        }
+        .card label {
+            margin-bottom: 5px;
+        }
+        .card input[type="submit"] {
+            margin-top: 10px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="card">
+            <h2>EDIT CATEGORY</h2>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for x in form %}
+                    <label>{{ x.label_tag }}</label>
+                    {{ x }}
+                {% endfor %}
+                <input type="submit" value="EDIT">
+            </form>
+        </div>
+    </div>
+{% endblock %}

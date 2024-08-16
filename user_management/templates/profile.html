@@ -1,0 +1,257 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        body {
+            background-color: #070000;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 40%;
+            background-color: rgb(255, 252, 252);
+            margin: 20px auto;
+            padding: 20px;
+            
+        }
+        .card p{
+            color: #070000;
+            
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        .profile-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the entire image is visible within the circular container */
+    }
+
+
+        .profile-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+        }
+
+        .update-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .update-btn a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .update-btn:hover {
+            background-color: #45a049;
+        }
+
+        @media screen and (max-width: 768px) {
+            .card {
+                width: 80%;
+            }
+        }
+            /* Add styles for the modal */
+            .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+        }
+        .modal-content img {
+            width: 100%;
+            height: 600px;
+        }
+        /* Close button for the modal */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            font-size: 30px;
+            color: #f1f1f1;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #bbb;
+        }
+        .popup-image {
+        max-width: 80%;
+        max-height: 80%;
+        margin-left: 10%;
+    }
+    .profile-picture {
+       width: 150px; /* Set the desired size of your profile picture */
+       height: 150px;
+       margin-left:60%;
+       border-radius: 50%; /* Apply the circular mask */
+       overflow: hidden; /* Hide any content that goes outside the circle */
+     }
+     .profile-picture img {
+       width: 100%;
+       height: 100%;
+       border: 2px solid #ccc;
+       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+     }
+    </style>
+</head>
+<body>
+<br>
+<div class="w3-container">
+    
+    <div class="card">
+        <div id="profile-picture">
+        {% if request.session.ut == "2" %}
+        <div class="popup-container" id="popup-container">
+            <img src="{{d.saloon_certificate.url}}" class="popup-image" alt="Popup Image">
+        </div>
+        {% endif %}
+        {% if request.session.ut == "3" %}
+        <div class="popup-container" id="popup-container">
+            <img src="{{d.firm_license.url}}" class="popup-image" alt="Popup Image">
+        </div>
+        {% endif %}
+    </div>
+
+        <div class="profile-info">
+            <p><b>Name:</b> {{d.username}}</p>
+            <p><b>Email:</b> {{d.email}}</p>
+            <p><b>Contact:</b> {{d.phone_no}}</p>
+            <p><b>Password:</b> *******</p>
+           
+            
+
+            {% if request.session.ut == "2" %}
+                <p><b>Owner Name:</b> {{d.owner}}</p>
+                <!-- You can replace the image URL below with the actual certificate image URL -->
+               
+                
+            {% endif %}
+
+            <button class="update-btn">
+                {% if request.session.ut == "2" %}
+                    <a href="/edit_prof/{{d.id}}">EDIT</a>
+                {% elif request.session.ut == 0 %}
+                    <a href="/edit_profile/{{d.id}}">EDIT</a>
+                {% elif request.session.ut == 3 %}
+                    <a href="/edit_prof_fre/{{d.id}}">EDIT</a>
+                {% else %}
+                    <a href="/edit_profile/{{d.id}}">EDIT</a>
+                {% endif %}
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+        <img id="modalImg" src="" alt="">
+    </div>
+</div>
+
+<script>
+
+    
+const profilePicture = document.getElementById("profile-picture");
+        const popupContainer = document.getElementById("popup-container");
+
+        profilePicture.addEventListener("click", () => {
+            popupContainer.style.display = "flex";
+        });
+
+        popupContainer.addEventListener("click", (event) => {
+            if (event.target === popupContainer) {
+                popupContainer.style.display = "none";
+            }
+        });
+
+
+    
+    // JavaScript to handle the modal
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("modalImg");
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    // Function to open the modal
+    function openModal(imageSrc) {
+        modal.style.display = "block";
+        modalImg.src = imageSrc;
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Attach click event to each image in the table
+    const images = document.querySelectorAll("img");
+    images.forEach((img) => {
+        img.addEventListener("click", (event) => {
+            event.stopPropagation();
+            openModal(img.src);
+        });
+    });
+
+    // Close the modal when the close button is clicked
+    closeBtn.onclick = closeModal;
+
+    // Close the modal when the user clicks outside of it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+</script>
+
+</body>
+{% endblock %}

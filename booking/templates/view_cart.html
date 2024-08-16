@@ -1,0 +1,90 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+					<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		
+                    <style>
+                        .card {
+                          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                          transition: 0.3s;
+                          width: 40%;
+                        }
+                        
+                        .card:hover {
+                          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                        }
+                        
+                        .container {
+                          padding: 2px 16px;
+                        }
+                        </style>
+	</head>
+  <br><br><br><br>
+  
+	<body style="background-color:#131313">
+    
+
+    
+
+        
+        <div class="w3-container row" >
+          
+			    <br>
+            <br>
+            <button type="submit" style="width: 100px; height: 100px;"><a href="/book_all">BOOK ALL</a> </button>
+            <button type="submit" style="width: 100px; height: 100px;"> TOTAL AMOUNT {{q}}</button>
+            <button type="submit" style="width: 100px; height: 100px;"> ESTIMATED TIME {{m}} Minutes</button>
+            {% for item in a %}
+        <div class="w3-white w3-hover-shadow col-sm-12 col-md-4">
+            <div>
+                {% if item.sid %}
+                
+                <img src="{{ item.sid.image.url }}" alt="" width="375px" height="260px">
+                <p>Service:<br>{{ item.sid.name }}</p>
+                <p>Amount:<br>{{ item.sid.price }}</p>
+                <p>Time:<br>{{ item.sid.time }} Minutes</p>
+                {% endif %}
+                {% if item.cid %}
+                <img src="{{ item.cid.image.url }}" alt="" width="375px" height="260px">
+                <p>Product:<br>{{ item.cid.product_name }}</p>
+                <p>1 product Amount:<br>{{ item.cid.price }}</p>
+                <p>No Of Products you selected:<br>{{ item.no_of_products }}</p>
+               
+
+                
+                {% endif %}
+                <button type="submit"><a href="/remove_cart/{{ item.id }}">REMOVE FROM WISHLIST</a></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+</div>
+
+
+
+
+
+</body>
+
+					
+					
+                   
+
+
+
+
+{%endblock%}								
+						
+						
